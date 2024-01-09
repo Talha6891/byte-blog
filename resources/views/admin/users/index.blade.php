@@ -12,7 +12,25 @@
     {{-- DataTable of users --}}
     <div class="card">
         <div class="card-header">
-            <h2 class="fw-bold">{{ __('Users') }}</h2>
+            <div class="d-flex justify-content-between">
+
+                <h2 class="fw-bold">{{ __('Users') }}</h2>
+
+                {{-- search record --}}
+                <div class="input-group col-4">
+                    <form action="{{ route('users.index') }}" method="GET" class="form-inline">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control"
+                                   placeholder="{{ __('Search') }}">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <table class="table table-hover text-center">
@@ -63,7 +81,7 @@
                             @endcan
 
                             {{-- edit user --}}
-                            @can('user edit')
+                            @can('user update')
                                 <a href="{{ route('users.edit', $user) }}" class="btn btn-warning btn-sm mx-1">
                                     <i class="bi bi-pencil"></i>
                                 </a>
@@ -90,6 +108,10 @@
                 @endforelse
                 </tbody>
             </table>
+        </div>
+        {{-- pagination --}}
+        <div class="d-flex justify-content-center">
+            {{ $users->links('admin.pagination') }}
         </div>
     </div>
 

@@ -42,9 +42,7 @@
             </div>
         </div>
         @can('user edit')
-            <div class="form-footer pt-5 border-top">
-                <button type="submit" class="btn btn-primary btn-pill">{{ __('Submit') }}</button>
-            </div>
+            <button type="submit" class="btn btn-primary col-3">{{ __('Update User') }}</button>
         @endcan
     </form>
 @endsection

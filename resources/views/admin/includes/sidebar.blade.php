@@ -2,8 +2,8 @@
     <div id="sidebar" class="sidebar sidebar-with-footer">
 
         <div class="app-brand">
-            <a href="">
-                <img src="{{ asset('assets/admin/images/logo.png') }}" alt="Mono">
+            <a href="{{ route('dashboard') }}">
+                <img src="{{ asset('assets/admin/images/byte-blog-logo.png')  }}" alt="Mono" width="60px;" height="60px;">
                 <span class="brand-name">{{ __('Admin') }}</span>
             </a>
         </div>

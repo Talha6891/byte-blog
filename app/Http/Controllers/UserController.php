@@ -23,7 +23,22 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::latest()->paginate(10);
+        $query = User::query();
+        $searchQuery = $request->input('search');
+
+        if ($searchQuery) {
+            $query->where('id', 'LIKE', "%$searchQuery%")
+                ->orWhere('name', 'LIKE', "%$searchQuery%")
+                ->orWhere('email', 'LIKE', "%$searchQuery%")
+                ->orWhere('email_verified_at', 'LIKE', "%$searchQuery%")
+                ->orWhere('created_at', 'LIKE', "%$searchQuery%");
+        }
+        // Exclude the administrator from the result
+        $query->where('id', '<>', auth()->user()->id);
+
+        $entriesPerPage = $request->input('entries_per_page', 10);
+
+        $users = $query->paginate($entriesPerPage);
 
         return view('admin.users.index', compact('users'));
     }

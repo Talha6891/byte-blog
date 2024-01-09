@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -19,9 +20,23 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::latest()->paginate(10);
+        $query = Post::query();
+
+        $searchQuery = $request->input('search');
+
+        if ($searchQuery) {
+            $query->where('id', 'LIKE', "%$searchQuery%")
+                ->orWhere('name', 'LIKE', "%$searchQuery%")
+                ->orWhere('slug', 'LIKE', "%$searchQuery%")
+                ->orWhere('category', 'LIKE', "%$searchQuery%")
+                ->orWhere('tag', 'LIKE', "%$searchQuery%")
+                ->orWhere('description', 'LIKE', "%$searchQuery%")
+                ->orWhere('created_at', 'LIKE', "%$searchQuery%");
+        }
+        $posts = $query->paginate(10);
+
         return view('admin.posts.index', compact('posts'));
     }
 

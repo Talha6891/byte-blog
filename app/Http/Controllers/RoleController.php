@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -11,15 +12,24 @@ class RoleController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(Role::class,'role');
+        $this->authorizeResource(Role::class, 'role');
     }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $roles = Role::latest()->paginate(10);
+        $query = Role::query();
+        $searchQuery = $request->input('search');
 
+        if ($searchQuery) {
+            $query->where('id', 'LIKE', "%$searchQuery%")
+                ->orWhere('name', 'LIKE', "%$searchQuery%")
+                ->orWhere('created_at', 'LIKE', "%$searchQuery%");
+        }
+
+        $roles = $query->latest()->paginate(10);
         return view('admin.roles.index', compact('roles'));
     }
 

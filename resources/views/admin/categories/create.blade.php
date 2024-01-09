@@ -25,9 +25,7 @@
                     </div>
                 </div>
                 @can('category create')
-                <div class="form-footer pt-5 border-top">
-                    <button type="submit" class="btn btn-primary btn-pill">{{ __('Create') }}</button>
-                </div>
+                    <button type="submit" class="btn btn-primary col-3">{{ __('Create Category') }}</button>
                 @endcan
             </form>
         </div>

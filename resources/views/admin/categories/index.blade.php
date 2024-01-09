@@ -10,15 +10,33 @@
 
     {{-- Create button --}}
     @can('category create')
-    <a href="{{ route('categories.create') }}" class="btn btn-primary mb-3">
-        <i class="bi bi-plus"></i> {{ __('Create Category') }}
-    </a>
+        <a href="{{ route('categories.create') }}" class="btn btn-primary mb-3">
+            <i class="bi bi-plus"></i> {{ __('Create Category') }}
+        </a>
     @endcan
 
     {{-- DataTable of categories --}}
     <div class="card">
         <div class="card-header">
-            <h2 class="fw-bold">{{ __('Categories') }}</h2>
+            <div class="d-flex justify-content-between">
+
+                <h2 class="fw-bold">{{ __('Categories') }}</h2>
+
+                {{-- search record --}}
+                <div class="input-group col-4">
+                    <form action="{{ route('categories.index') }}" method="GET" class="form-inline">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control"
+                                   placeholder="{{ __('Search') }}">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <table class="table table-hover text-center">
@@ -49,29 +67,29 @@
                         <td class="d-flex justify-content-center">
                             {{-- show category --}}
                             @can('category show')
-                            <a href="{{ route('categories.show', $category) }}" class="btn btn-sm btn-success">
-                                <i class="bi bi-eye"></i>
-                            </a>
+                                <a href="{{ route('categories.show', $category) }}" class="btn btn-sm btn-success">
+                                    <i class="bi bi-eye"></i>
+                                </a>
                             @endcan
 
                             {{-- edit category --}}
-                            @can('category edit')
-                            <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-warning mx-1">
-                                <i class="bi bi-pencil"></i>
-                            </a>
+                            @can('category update')
+                                <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-warning mx-1">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
                             @endcan
 
                             {{-- delete category --}}
                             @can('category delete')
-                            <form method="POST" action="{{ route('categories.destroy', $category) }}"
-                                  id="deleteForm{{ $category->id }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="btn btn-sm btn-danger"
-                                        onclick="sweetAlertDelete('deleteForm{{ $category->id }}')">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </form>
+                                <form method="POST" action="{{ route('categories.destroy', $category) }}"
+                                      id="deleteForm{{ $category->id }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                            onclick="sweetAlertDelete('deleteForm{{ $category->id }}')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
                             @endcan
                         </td>
                     </tr>
@@ -82,6 +100,10 @@
                 @endforelse
                 </tbody>
             </table>
+        </div>
+        {{-- pagination --}}
+        <div class="d-flex justify-content-center">
+            {{ $categories->links('admin.pagination') }}
         </div>
     </div>
 

@@ -27,10 +27,8 @@
                 </div>
             </div>
         </div>
-        @can('tag create')
-            <div class="form-footer pt-5 border-top">
-                <button type="submit" class="btn btn-primary btn-pill">{{ __('Update') }}</button>
-            </div>
+        @can('tag update')
+            <button type="submit" class="btn btn-primary col-3">{{ __('Update Tag') }}</button>
         @endcan
     </form>
 @endsection

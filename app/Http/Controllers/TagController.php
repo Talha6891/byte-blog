@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTagRequest;
 use App\Http\Requests\UpdateTagRequest;
 use App\Models\Tag;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -17,11 +18,28 @@ class TagController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tags = Tag::latest()->paginate(10);
+        $query = Tag::query();
+
+        // Get the search query from the request
+        $searchQuery = $request->input('search');
+        if ($searchQuery)
+        {
+            $query->where('id', 'LIKE', "%$searchQuery%")
+                ->orWhere('name', 'LIKE', "%$searchQuery%")
+                ->orWhere('slug', 'LIKE', "%$searchQuery%")
+                ->orWhere('description', 'LIKE', "%$searchQuery%")
+                ->orWhere('created_at', 'LIKE', "%$searchQuery%");
+        }
+        $entriesPerPage = $request->input('entries_per_page', 10);
+
+        // Execute the query with pagination
+        $tags = $query->paginate($entriesPerPage);
+
         return view('admin.tags.index', compact('tags'));
     }
+
 
     /**
      * Show the form for creating a new resource.

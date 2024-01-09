@@ -25,8 +25,8 @@ use App\Http\Controllers\AdminProfileController;
 // });
 
 
-Route::get('/', function () {
-    return view('admin.layouts.admin');
+Route::get('/dashboard', function () {
+    return view('admin.dashboard');
 })->name('dashboard');
 
 Route::resource('users', UserController::class);

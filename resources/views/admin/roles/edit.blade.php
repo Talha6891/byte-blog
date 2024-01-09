@@ -18,7 +18,7 @@
             </div>
 
             {{-- permissions --}}
-            <div class="form-group">
+            <div class="form-group ml-3">
                 <label for="name">{{ __('Permissions') }}</label>
                 <div class="row mt-2">
                     @foreach ($permissions as $permission)
@@ -37,10 +37,8 @@
                 </div>
             </div>
         </div>
-        @can('role edit')
-            <div class="form-footer pt-5 border-top">
-                <button type="submit" class="btn btn-primary btn-pill">{{ __('Update') }}</button>
-            </div>
+        @can('role update')
+            <button type="submit" class="btn btn-primary col-3">{{ __('Update Role') }}</button>
         @endcan
     </form>
 @endsection

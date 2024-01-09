@@ -18,7 +18,25 @@
     {{-- DataTable of categories --}}
     <div class="card">
         <div class="card-header">
-            <h2 class="fw-bold">{{ __('Tags') }}</h2>
+            <div class="d-flex justify-content-between">
+
+                <h2 class="fw-bold">{{ __('Tags') }}</h2>
+
+                {{-- search record --}}
+                <div class="input-group col-4">
+                    <form action="{{ route('tags.index') }}" method="GET" class="form-inline">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control"
+                                   placeholder="{{ __('Search') }}">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <table class="table table-hover text-center">
@@ -59,7 +77,7 @@
                             @endcan
 
                             {{-- edit category --}}
-                            @can('tag edit')
+                            @can('tag update')
                                 <a href="{{ route('tags.edit', $tag) }}" class="btn btn-sm btn-warning mx-1">
                                     <i class="bi bi-pencil"></i>
                                 </a>
@@ -86,6 +104,10 @@
                 @endforelse
                 </tbody>
             </table>
+        </div>
+        {{-- pagination --}}
+        <div class="d-flex justify-content-center">
+            {{ $tags->links('admin.pagination') }}
         </div>
     </div>
 

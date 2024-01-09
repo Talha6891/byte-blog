@@ -26,10 +26,8 @@
                 </div>
             </div>
         </div>
-        @can('category edit')
-        <div class="form-footer pt-5 border-top">
-            <button type="submit" class="btn btn-primary btn-pill">{{ __('Update') }}</button>
-        </div>
+        @can('category update')
+            <button type="submit" class="btn btn-primary col-3">{{ __('Update Category') }}</button>
         @endcan
     </form>
 @endsection

@@ -119,9 +119,7 @@
 
                 {{-- edit button --}}
                 @can('post edit')
-                    <div class="form-footer pt-5 border-top">
-                        <button type="submit" class="btn btn-primary btn-pill">{{ __('Update') }}</button>
-                    </div>
+                    <button type="submit" class="btn btn-primary col-3">{{ __('Update Post') }}</button>
                 @endcan
             </form>
         </div>
