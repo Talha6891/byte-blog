@@ -8,8 +8,8 @@
 
             {{-- post image --}}
             <div class="mb-3 text-center">
-                <img src="{{ $post->getFirstMediaUrl('post') ?? asset('assets/admin/images/fallback_image.jpg')  }}"
-                     alt="Post Image" class="img-thumbnail rounded w-auto h-auto">
+                <img class="img-thumbnail" src="{{ $post->getFirstMediaUrl('post') ?? asset('assets/admin/images/fallback_image.jpg')  }}"
+                     alt="Post Image" style="max-width: 100%; max-height: 70vh;">
             </div>
 
 

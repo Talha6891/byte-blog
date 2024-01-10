@@ -8,6 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +25,8 @@ use App\Http\Controllers\AdminProfileController;
 //     return view('welcome');
 // });
 
+//Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->name('dashboard');
-
-Route::resource('users', UserController::class);
 
 Auth::routes();
 
@@ -38,17 +35,22 @@ Route::group([
     'prefix' => 'admin'
 ],
     function () {
-        Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
         Route::resources([
+            'users' => UserController::class,
             'categories' => CategoryController::class,
             'posts' => PostController::class,
             'tags' => TagController::class,
             'roles' => RoleController::class,
         ]);
-        //Admin profile
-        Route::controller(AdminProfileController::class)->group(function(){
-            Route::get('/profile/show','show')->name('profile.show');
-            Route::put('/profile/update/{id}', 'update')->name('profile.update');
+
+        // Admin profile
+        Route::prefix('profile')->name('profile.')->group(function () {
+            Route::get('/show', [AdminProfileController::class, 'show'])->name('show');
+            Route::put('/update/{id}', [AdminProfileController::class, 'update'])->name('update');
         });
     });
+
 

@@ -9,7 +9,7 @@
         <div class="card col-xl-3 col-sm-6 bg-success d-flex flex-column justify-content-between">
             <div class="card-body">
                 <h3 class="card-title">{{ __('Users') }}</h3>
-                <p class="card-text">{{ __('Total Registered Users: ') }}</p>
+                <p class="card-text">{{ __('Total Registered Users: ') }} {{ $total_users }}</p>
             </div>
             <a href="{{ route('users.index') }}" class="btn btn-primary mb-1">{{ __('Show users') }}</a>
         </div>
@@ -18,7 +18,7 @@
         <div class="card col-xl-3 col-sm-6 bg-secondary d-flex flex-column justify-content-between">
             <div class="card-body">
                 <h3 class="card-title">{{ __('Categories') }}</h3>
-                <p class="card-text">{{ __('Total categories: ') }}</p>
+                <p class="card-text">{{ __('Total categories: ') }} {{ $total_categories }}</p>
             </div>
             <a href="{{ route('categories.index') }}" class="btn btn-primary mb-1">{{ __('Show categories') }}</a>
         </div>
@@ -27,8 +27,8 @@
         <div class="card col-xl-3 col-sm-6 bg-warning d-flex flex-column justify-content-between">
             <div class="card-body">
                 <h3 class="card-title">{{ __('Posts') }}</h3>
-                <p class="card-text">{{ __('Published posts: ') }}</p>
-                <p class="card-text">{{ __('Draft posts: ') }}</p>
+                <p class="card-text">{{ __('Published posts: ') }} {{ $total_published_posts }} </p>
+                <p class="card-text">{{ __('Draft posts: ') }} {{ $total_draft_posts }}</p>
             </div>
             <a href="{{ route('posts.index') }}" class="btn btn-primary mb-1">{{ __('Show post') }}</a>
         </div>
@@ -37,7 +37,7 @@
         <div class="card col-xl-3 col-sm-6 bg-info d-flex flex-column justify-content-between">
             <div class="card-body">
                 <h3 class="card-title">{{ __('Tags') }}</h3>
-                <p class="card-text">{{ __('Total tags: ') }}</p>
+                <p class="card-text">{{ __('Total tags: ') }} {{ $total_tags }}</p>
             </div>
             <a href="{{ route('tags.index') }}" class="btn btn-primary mb-1">{{ __('Show tags') }}</a>
         </div>
