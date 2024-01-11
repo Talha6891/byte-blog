@@ -9,7 +9,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\PublicController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,8 +25,8 @@ use App\Http\Controllers\DashboardController;
 //     return view('welcome');
 // });
 
-//Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
-
+Route::get('/', [HomeController::class, 'index']);
+Route::get('post-show/{slug}', [PublicController::class, 'showPost'])->name('post.show');
 
 Auth::routes();
 
@@ -47,7 +47,7 @@ Route::group([
         ]);
 
         // Admin profile
-        Route::prefix('profile')->name('profile.')->group(function () {
+        Route::prefix('/profile')->name('profile.')->group(function () {
             Route::get('/show', [AdminProfileController::class, 'show'])->name('show');
             Route::put('/update/{id}', [AdminProfileController::class, 'update'])->name('update');
         });
