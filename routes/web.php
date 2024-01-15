@@ -2,14 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PublicController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\BlogController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,8 +25,11 @@ use App\Http\Controllers\PublicController;
 //     return view('welcome');
 // });
 
-Route::get('/', [HomeController::class, 'index']);
-Route::get('post-show/{slug}', [PublicController::class, 'showPost'])->name('post.show');
+Route::get('/', [BlogController::class, 'index']);
+Route::get('post-show/{slug}', [BlogController::class, 'showSinglePost'])->name('post.show');
+Route::post('comment/{id}', [CommentController::class, 'create'])->name('comments.create');
+Route::post('comments.reply/{id}', [CommentController::class, 'commentReply'])->name('comments.reply');
+
 
 Auth::routes();
 

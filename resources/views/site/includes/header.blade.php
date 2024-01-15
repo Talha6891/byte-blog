@@ -35,8 +35,8 @@
                             @csrf
                         </form>
                     @else
-                        <a class="btn btn-outline-warning me-3" href="">{{ __('Login') }}</a>
-                        <a class="btn btn-outline-warning" href="">{{ __('Sign up') }}</a>
+                        <a class="btn btn-outline-warning me-3" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="btn btn-outline-warning" href="{{ route('register') }}">{{ __('Sign up') }}</a>
                     @endauth
                 </li>
             </ul>

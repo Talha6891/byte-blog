@@ -2,64 +2,47 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCommentReplyRequest;
+use App\Http\Requests\StoreCommentRequest;
 use App\Models\Comment;
-use Illuminate\Http\Request;
+use App\Models\CommentReply;
+use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function create(StoreCommentRequest $request, string $id)
     {
-        //
+        $validated = $request->validated();
+        if (Auth::check())
+        {
+            $post = Post::findOrFail($id);
+            Comment::create([
+                'comment' => $validated['comment'],
+                'post_id' => $post->id,
+                'user_id' => Auth::id()
+            ]);
+            return back();
+        }
+        return redirect('login');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function commentReply(StoreCommentReplyRequest $request, string $id)
     {
-        //
-    }
+        $validated = $request->validated();
+//        dd($validated);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Comment $comment)
-    {
-        //
+        if (Auth::check())
+        {
+            $comment = Comment::findOrFail($id);
+            CommentReply::create([
+                'comment' => $validated['comment_reply'],
+                'comment_id' => $comment->id,
+                'user_id' => Auth::id()
+            ]);
+            return back();
+        }
+        return redirect('login');
     }
 }
