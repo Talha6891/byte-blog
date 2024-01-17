@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-white">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{ asset('assets/site/images/byte-blog-logo.png') }}" alt="logo" width="60px" height="60px">
             <span class="fw-bolder">{{ __('Byte Blog') }}</span>
         </a>
@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="">{{ __('Home') }}</a>
+                    <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">{{ __('Category') }}</a>
@@ -25,7 +25,8 @@
                     <a class="nav-link" href="">{{ __('Contact us') }}</a>
                 </li>
             </ul>
-            <ul class="navbar-nav ms-auto"> <li class="nav-item">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
                     @auth
                         <a class="btn btn-outline-warning me-3" href="{{ route('logout') }}"
                            onclick="event.preventDefault();

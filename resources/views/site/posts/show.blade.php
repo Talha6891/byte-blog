@@ -54,17 +54,19 @@
                                             {{-- comment reply --}}
                                             <a href="#" class="reply rounded toggle-reply"
                                                data-target="replyBox{{ $comment->id }}">
-                                               {{ __(' Reply') }}
+                                                {{ __(' Reply') }}
                                             </a>
                                             <div class="collapse reply-box mt-2" id="replyBox{{ $comment->id }}">
 
-                                                <form method="POST" action="{{ route('comments.reply', ['id' => $comment->id]) }}">
+                                                <form method="POST"
+                                                      action="{{ route('comments.reply', ['id' => $comment->id]) }}">
                                                     @csrf
                                                     @if (!auth()->check())
                                                         <p class="text-danger">{{ __('Please login to comment.') }}</p>
                                                     @endif
                                                     <textarea class="form-control"
-                                                             name="comment_reply" placeholder="Write your reply..." @disabled(!auth()->check())></textarea>
+                                                              name="comment_reply"
+                                                              placeholder="Write your reply..." @disabled(!auth()->check())></textarea>
                                                     <button
                                                         class="btn btn-primary mt-2 reply-submit" @disabled(!auth()->check())>
                                                         {{ __('Submit Reply') }}
@@ -84,12 +86,15 @@
                                                         <li class="comment mt-2">
                                                             <div class="vcard">
                                                                 {{-- Display user's avatar for the reply --}}
-                                                                <img src="{{ Avatar::create($reply->user->name)->toBase64() }}" alt="User Avatar">
+                                                                <img
+                                                                    src="{{ Avatar::create($reply->user->name)->toBase64() }}"
+                                                                    alt="User Avatar">
                                                             </div>
                                                             <div class="comment-body">
                                                                 {{-- Display the user's name for the reply --}}
                                                                 <h3>{{ $reply->user->name }}</h3>
-                                                                <div class="meta">{{ $reply->created_at->format('F j, Y \a\t g:ia') }}</div>
+                                                                <div
+                                                                    class="meta">{{ $reply->created_at->format('F j, Y \a\t g:ia') }}</div>
                                                                 <p>{{ $reply->comment }}</p>
                                                             </div>
                                                         </li>
@@ -127,10 +132,7 @@
                             </form>
                         </div>
                     </div>
-
                 </div>
-
-                <!-- END main-content -->
 
                 <div class="col-md-12 col-lg-4 sidebar">
 
@@ -139,7 +141,7 @@
                         <h3 class="heading">{{ __('Category') }}</h3>
                         <ul class="categories">
                             <li>
-                                <a href="#">
+                                <a href="{{ route('category.post.show',['slug' => $post->category->slug]) }}">
                                     {{ strtoupper($post->category->name) }}
                                     <span>({{ $post->category->posts->count() }})</span>
                                 </a>
@@ -152,33 +154,34 @@
                         <h3 class="heading">{{ __('Tags') }}</h3>
                         <ul class="tags">
                             @forelse($post->tags as $tag)
-                                <li><a href="#">{{ $tag->name }}</a></li>
+                                <li><a href="{{ route('tag.post.show', ['slug' => $tag->slug]) }}">{{ $tag->name }}</a></li>
                             @empty
                                 <li><a href="#">{{ __('No tag available') }}</a></li>
                             @endforelse
                         </ul>
                     </div>
 
-{{-- sidebar --}}
+                    {{-- sidebar --}}
                     <div class="sidebar-box">
                         <h3 class="heading">{{ __('Latest Posts') }}</h3>
                         <div class="post-entry-sidebar">
                             <ul>
                                 @forelse($latest_posts as $latest)
-                                <li>
-                                    <a href="{{ route('post.show', $latest->slug) }}">
-{{--                                        @if($latest->hasMedia())--}}
-                                            <img src="{{ $latest->getFirstMediaUrl('post') }}" alt="Image placeholder" class="me-4 rounded">
-                                            <p>{{ $latest->getMediaFirstUrl('post') }}</p>
-{{--                                        @endif--}}
-                                        <div class="text">
-                                            <h4>{{ Str::title(Str::limit($latest->title,100)) }}</h4>
-                                            <div class="post-meta">
-                                                <span class="mr-2">{{ $latest->created_at->format('F j, Y') }}</span>
+                                    <li>
+                                        <a href="{{ route('post.show', $latest->slug) }}">
+                                            {{-- @if($latest->hasMedia()) --}}
+                                            <img src="{{ $latest->getFirstMediaUrl('post') }}" alt="Image placeholder"
+                                                 class="me-4 rounded">
+                                            {{-- @endif --}}
+                                            <div class="text">
+                                                <h4>{{ Str::title(Str::limit($latest->title,100)) }}</h4>
+                                                <div class="post-meta">
+                                                    <span
+                                                        class="mr-2">{{ $latest->created_at->format('F j, Y') }}</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                </li>
+                                        </a>
+                                    </li>
                                 @empty
                                     <li></li>
                                 @endforelse

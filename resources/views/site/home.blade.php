@@ -12,7 +12,7 @@
                 <div class="col-md-8">
                     <form class="search-form">
                         <div class="input-group">
-                            <input type="text" class="form-control form-control-lg" placeholder="Search here...">
+                            <input type="text" name="query" class="form-control form-control-lg" placeholder="Search here...">
                             <button class="btn btn-outline-danger" type="submit">Search</button>
                         </div>
                     </form>
@@ -22,7 +22,7 @@
             {{-- showing blogs  --}}
             <div class="row align-items-stretch retro-layout">
                 @forelse($posts as $post)
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-lg-4 mb-sm-2">
                         <a href="{{ route('post.show', $post->slug) }}" class="h-entry v-height gradient">
                             <div class="featured-img rounded"
                                  style="background-image: url('{{ $post->getFirstMediaUrl('post')  ?? asset('assets/admin/images/fallback_image.jpg') }}');">
